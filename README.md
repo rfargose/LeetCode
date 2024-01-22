@@ -1,0 +1,2 @@
+# LeetCode-SQL
+SQL Queries

@@ -10,7 +10,7 @@ cte2 as (select 'Premium' as membership
 union 
 select 'VIP'),
 
-cte3 as (select purchase_date, ceil(DAYOFMONTH(purchase_date)/7) AS week_of_month,
+cte3 as (select ceil(DAYOFMONTH(purchase_date)/7) AS week_of_month,
 membership, amount_spend
 from purchases p inner join users u on p.user_id = u.user_id
 where dayofweek(purchase_date) = 6 and membership != 'Standard')

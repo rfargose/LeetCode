@@ -1,6 +1,9 @@
-with cte1 as(select customer_id, GROUP_CONCAT(product_name order by product_name) products
-from orders
-group by 1),
-cte2 as(select customer_id from cte1 where products like 'A%' and products like '%B%' and products not like '%C%')
+with cte1 as (select c.customer_id, c.customer_name,
+group_concat(distinct product_name order by product_name) products_bought
+from customers c
+inner join orders o on c.customer_id = o.customer_id
+group by 1)
 
-select cte2.customer_id, customers.customer_name from cte2 inner join customers on cte2.customer_id = customers.customer_id
+select customer_id, customer_name
+from cte1 where products_bought like '%A%' and products_bought like '%B%' 
+and products_bought not like '%C%'
